@@ -3,7 +3,7 @@ function Header() {
     return (
         <header>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
-                <div classNameName="container-fluid">
+                <div className="container-fluid">
                     <NavLink className="navbar-brand" to="/">
                         MyLogo
                     </NavLink>

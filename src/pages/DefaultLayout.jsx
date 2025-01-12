@@ -5,7 +5,7 @@ function DefaultLayout() {
     return (
         <>
             <Header />
-            <main>
+            <main className="container py-5">
                 <Outlet />
             </main>
             <Footer />

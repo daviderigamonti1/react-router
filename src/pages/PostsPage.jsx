@@ -1,5 +1,52 @@
-function PostsPage() {
-    return <h1 className="text-center">Lista Posts</h1>
-}
+import { useState, useEffect } from "react";
 
-export default PostsPage;
+import axios from "axios";
+
+import Card from "../components/Card"
+
+const apiUrl = import.meta.env.VITE_API_URL;
+
+function MainComponent() {
+    const [postItem, setPostItem] = useState([]);
+
+    useEffect(getData, []);
+
+    function getData() {
+        axios
+            .get(apiUrl + "/posts")
+            .then((res) => {
+                setPostItem(res.data.data)
+            })
+            .catch((error) => console.error("Errore durante il recupero dei dati", error))
+    }
+
+    function deleteItem(id) {
+        axios
+            .delete(`${apiUrl}/posts/${id}`)
+            .then((res) => {
+                getData();
+            })
+            .catch((error) => {
+                console.error("Errore durante la cancellazione del post", error);
+            });
+
+    }
+    return (
+        <div className="row gy-4">
+            {postItem.length > 0
+                ? postItem.map((post) => (
+                    <div className="col-12 col-md-6 col-lg-4" key={post.id}>
+                        <Card
+                            image={post.image}
+                            title={post.title}
+                            content={post.content}
+                            id={post.id}
+                            onDelete={() => deleteItem(post.id)}
+                        />
+                    </div>
+                ))
+                : console.log("Non ci sono pizze")}
+        </div>
+    );
+}
+export default MainComponent;
