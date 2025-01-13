@@ -6,21 +6,29 @@ import axios from "axios";
 
 import Card from "../components/Card";
 import MyForm from "./MyForm";
+import Loader from "../components/Loader";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function MainComponent() {
     const [postItem, setPostItem] = useState([]);
 
+    const [loading, setLoading] = useState(false);
+
     useEffect(getData, []);
 
     function getData() {
+        setLoading(true);
         axios
             .get(apiUrl + "/posts")
             .then((res) => {
                 setPostItem(res.data.data)
             })
             .catch((error) => console.error("Errore durante il recupero dei dati", error))
+            .finally(() => {
+                console.log("finally");
+                setLoading(false);
+            })
     }
 
     function deleteItem(id) {
@@ -36,6 +44,7 @@ function MainComponent() {
     }
     return (
         <>
+            {loading && <Loader />}
             <Link className="btn btn-info m-4" to="create">Aggiungi un post</Link>
             <div className="row gy-4">
                 {postItem.length > 0
