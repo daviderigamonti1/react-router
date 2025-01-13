@@ -7,6 +7,7 @@ import Contact from "./pages/Contact"
 import About from "./pages/About"
 import PostsPage from "./pages/PostsPage"
 import PostPage from "./pages/PostPage"
+import MyForm from "./pages/MyForm"
 import NotFoundPage from "./pages/NotFoundPage"
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path='/posts' >
               <Route index Component={PostsPage} />
               <Route path=":id" Component={PostPage} />
+              <Route path="create" Component={MyForm} />
             </Route>
           </Route>
           <Route path="*" Component={NotFoundPage} />

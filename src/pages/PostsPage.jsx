@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 
+import { Link } from "react-router-dom";
+
 import axios from "axios";
 
-import Card from "../components/Card"
+import Card from "../components/Card";
+import MyForm from "./MyForm";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -32,21 +35,24 @@ function MainComponent() {
 
     }
     return (
-        <div className="row gy-4">
-            {postItem.length > 0
-                ? postItem.map((post) => (
-                    <div className="col-12 col-md-6 col-lg-4" key={post.id}>
-                        <Card
-                            image={post.image}
-                            title={post.title}
-                            content={post.content}
-                            id={post.id}
-                            onDelete={() => deleteItem(post.id)}
-                        />
-                    </div>
-                ))
-                : console.log("Non ci sono pizze")}
-        </div>
+        <>
+            <Link className="btn btn-info m-4" to="create">Aggiungi un post</Link>
+            <div className="row gy-4">
+                {postItem.length > 0
+                    ? postItem.map((post) => (
+                        <div className="col-12 col-md-6 col-lg-4" key={post.id}>
+                            <Card
+                                image={post.image}
+                                title={post.title}
+                                content={post.content}
+                                id={post.id}
+                                onDelete={() => deleteItem(post.id)}
+                            />
+                        </div>
+                    ))
+                    : console.log("Non ci sono pizze")}
+            </div>
+        </>
     );
 }
 export default MainComponent;

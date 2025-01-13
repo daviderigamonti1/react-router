@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 import axios from "axios";
@@ -10,7 +10,9 @@ function PostPage() {
     const { id } = useParams();
     const [post, setpost] = useState(null);
 
-    useEffect(getData, [id]);
+    const navigate = useNavigate();
+
+    useEffect(getData, [id, navigate]);
 
     function getData() {
         axios.get(apiUrl + "/posts/" + id)
@@ -20,6 +22,10 @@ function PostPage() {
             })
             .catch((error) => {
                 console.log(error);
+                navigate("/posts");
+            })
+            .finally(() => {
+                console.log("Finally");
             })
     }
 
