@@ -7,6 +7,7 @@ import Contact from "./pages/Contact"
 import About from "./pages/About"
 import PostsPage from "./pages/PostsPage"
 import PostPage from "./pages/PostPage"
+import NotFoundPage from "./pages/NotFoundPage"
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path=":id" Component={PostPage} />
             </Route>
           </Route>
+          <Route path="*" Component={NotFoundPage} />
         </Routes>
       </BrowserRouter>
     </>
